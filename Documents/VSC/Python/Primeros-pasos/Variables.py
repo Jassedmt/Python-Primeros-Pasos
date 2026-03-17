@@ -105,3 +105,30 @@ for month in study_plan:
     print(f"-> In {month} you will add {accumulated_hours} hours to yout Knowledge.")
 
 print("End of the plan")
+
+# 1 Definimos el punto de partida (Hucha vacía)
+total_hours_so_far = 0
+
+print("YOUR PROGRESSIVE STUDY CALENDAR:")
+
+#2 El buvle 'for' con memoria
+for month in study_plan:
+    #calculamos las hora de ESTE mes
+    hour_this_month = weekly_hours * 4
+
+    #Actualizamos la hucha: lo que había + lo nuevo
+    total_hours_so_far = total_hours_so_far + hour_this_month
+
+    #imprimimos el total acumulado
+    print(f"-> In {month}: You add {hour_this_month}h. Accumulated knwoledge: {total_hours_so_far}h")
+    
+print(f"--- Final result after 6 months: {total_hours_so_far} hours ---")
+
+#-------------------------Reto-----------------------------
+
+knowledge_goal = 200 #horas que se necesitan para ser 'Junior'
+
+if total_hours_so_far >= knowledge_goal:
+    print("You are ready for the Madrid tech market")
+else: 
+    print("Keep studying, you need more hours")
