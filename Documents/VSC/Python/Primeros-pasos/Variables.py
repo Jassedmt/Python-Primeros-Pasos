@@ -111,7 +111,7 @@ total_hours_so_far = 0
 
 print("YOUR PROGRESSIVE STUDY CALENDAR:")
 
-#2 El buvle 'for' con memoria
+#2 El bucle 'for' con memoria
 for month in study_plan:
     #calculamos las hora de ESTE mes
     hour_this_month = weekly_hours * 4
