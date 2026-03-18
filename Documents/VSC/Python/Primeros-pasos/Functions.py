@@ -235,3 +235,221 @@ for guest in access_list:
     v = guest[2]
     
     print(can_access_event(n, a, v))
+
+    #------------------------------------------------------------
+print(f"-"*30)
+
+# Ejercicio 3. El Validador de Emails (Limpieza básica)
+# En las bases de datos de marketing, a veces los emails vienen mal escritos 
+# (con espacios o en mayúsculas).
+
+# Instrucciones:
+
+# Crea una función llamada clean_email.
+# Debe recibir un parámetro: raw_email.
+# Dentro de la función:
+# Usa .strip() para quitar espacios al principio y al final.
+# Usa .lower() para ponerlo todo en minúsculas.
+# Return: Devuelve el email ya limpio.
+
+# Prueba: Crea una lista emails_sucios = ["  Jassed@Gmail.com", "CONTACTO@empresa.ES  ", "  admin@Madrid.Tech  "] y usa un bucle para limpiar cada uno e imprimirlos.
+
+def clean_email(dirty_email):
+
+    emails = []
+
+    for email in dirty_email:
+        clean_space_email = email.strip().lower()
+        emails.append(clean_space_email)
+    return emails
+
+dirty_email = ["  Jassed@Gmail.com ", "CONTACTO@empresa.ES  ", "  admin@Madrid.Tech  "]
+
+print(f"{clean_email(dirty_email)}")
+
+
+    #------------------------------------------------------------
+print(f"-"*30)
+
+# Ejercicio 4: El Buscador de "Talento Top"
+# Ahora que tienes la "fábrica de limpieza" dominada, vamos a por la 
+# "fábrica de decisiones". Este ejercicio no usa listas ni .append(),
+# sino que evalúa una sola persona cada vez que lo llamas.
+
+# Instrucciones:
+# Crea la función is_senior_candidate(years_exp, language).
+# Si tiene más de 5 años y el lenguaje es "Python" (ojo con las mayúsculas), devuelve: "High Priority".
+# Si tiene más de 5 años pero otro lenguaje, devuelve: "Medium Priority".
+# En cualquier otro caso, devuelve: "Junior Developer".
+
+def is_senior_candidate(years_exp, language):
+    language = language.title()
+
+    if years_exp > 5 and language == "Python":
+        return "High Priority"
+    elif years_exp > 5 and language != "Python":
+        return "Medium Priority"
+    else:
+        return "Junior developer"
+
+print(is_senior_candidate(8, "Python"))
+print(is_senior_candidate(10, "Java"))
+print(is_senior_candidate(2, "Python"))
+
+    #------------------------------------------------------------
+print(f"-"*30)
+
+# Como quieres machacar la base, aquí tienes dos retos que mezclan Listas + Funciones + Lógica Acumulativa.
+
+# 5. El "Calculador de Comisiones" (Ventas Madrid)En una empresa de software en Madrid, 
+# los comerciales tienen diferentes comisiones según lo que vendan.
+
+# Instrucciones: 
+# Crea una función calculate_commission(sales_list).
+# Lógica: * Si la venta es mayor a 10.000€, la comisión es del 10% ($0.10$).
+# Si la venta es menor o igual a 10.000€, la comisión es del 5% ($0.05$).
+# Objetivo: La función debe recibir la lista de ventas, calcular la comisión de cada una y devolver la suma total de todas las comisiones.
+
+def calculate_commission1(sales_list):
+     total_commissions = 0 # Esta es nuestra hucha
+
+     for sale in sales_list:
+         # 1. Calculamos la comisión de ESTA venta
+         if sale > 10000:
+             current_comm = sale * 0.10
+         else:
+             current_comm = sale * 0.05
+        
+         # 2. Metemos esa comisión en la hucha
+         total_commissions += current_comm
+        
+     # 3. Al final, devolvemos la hucha llena
+     return total_commissions
+
+sales_list = [12000, 5000, 25000, 10000, 800, 15000]
+print(f"Total a pagar en comisiones: {calculate_commission1(sales_list)}€")
+
+    #------------------------------------------------------------
+print(f"-"*30)
+
+
+#Para hacerlo mas entretenido de la siguiente manera:
+
+def calculate_commission(sales_list):
+    total_commissions = 0
+    commissions_list = [] # Nuestra lista de porcentajes calculados
+    
+    for sale in sales_list:
+        if sale > 10000:
+            current_comm = sale * 0.10
+        else:
+            current_comm = sale * 0.05
+        
+        # Guardamos en la lista y sumamos al total
+        commissions_list.append(current_comm)
+        total_commissions += current_comm
+    
+    # IMPORTANTE: El return va fuera del for
+    # Devolvemos una lista que contiene DOS cosas
+    return [commissions_list, total_commissions]
+
+# --- USO DE LA FUNCIÓN ---
+sales_list = [12000, 5000, 25000, 10000, 800, 15000]
+
+# Guardamos el resultado (que es una lista de dos posiciones)
+resultado = calculate_commission(sales_list)
+
+# Accedemos a la posición [0] para la lista y a la [1] para el total
+print(f"Lista de comisiones individuales: {resultado[0]}")
+print(f"Total a pagar en comisiones: {resultado[1]}€")
+
+
+    #------------------------------------------------------------
+print(f"-"*30)
+
+# 6. El "Filtro de Seguridad de Contraseñas"
+# Vamos a crear una función que valide si una contraseña es segura para una App.
+# Instrucciones: Crea una función is_secure_password(password).
+# Lógica (debe cumplir AMBAS para ser True):
+# Tener más de 8 caracteres (pista: usa len()).
+# No contener la palabra "123" (pista: usa if "123" not in password:).
+# Return: Debe devolver True si es segura o False si no lo es.
+
+def is_secure_password(password):
+
+    secure_password = len(password)
+    if "123" not in password and secure_password > 8 :
+        return True
+    else:
+        return False
+
+password = "madrid2026"
+print(f"{is_secure_password(password)}")        
+    #------------------------------------------------------------
+print(f"-"*30)
+
+#Cuando una condición de un if ya devuelve True o False por sí misma, 
+# puedes hacer el "Súper Atajo":
+
+def is_secure_password(password):
+    # Esto devuelve directamente el resultado de la comparación
+    return "123" not in password and len(password) > 8
+password = "madrid123"
+print(f"{is_secure_password(password)}")
+
+
+
+
+#------------------------------------------------------------
+print(f"-"*30)
+
+# EJERCICIO 7. El "Filtro de Precios de Idealista" 🏠
+# Imagina que trabajas en un portal inmobiliario en Madrid. 
+# Tienes una lista de precios de alquileres y quieres una función que te devuelva solo los que están en tu presupuesto.
+
+# Función: filter_rentals(price_list, max_budget)
+
+# Tarea: La función debe recibir una lista de precios (números) y tu presupuesto máximo (un número). 
+# Debe devolver una nueva lista que contenga solo los precios que son menores o iguales a tu presupuesto.
+
+# Prueba con: rentals = [1200, 900, 1500, 850, 2000] y un presupuesto de 1000.
+
+
+def filter_rentals(price_list, max_budget):
+    budget_list = []
+    for price in price_list:
+        if price <= max_budget:
+            budget_list.append(price)
+        # Comprobamos si la lista está vacía DESPUÉS de revisar todos los precios
+    if len(budget_list) == 0:
+        return "No hay rentas con tu presupuesto indicado"
+    
+    return budget_list
+
+max_budget = int(input("introduce tu presupuesto: "))
+price_list = [1200, 900, 1500, 850, 2000]
+print(f"{filter_rentals(price_list, max_budget)}")
+
+# 8. El "Contador de Menciones" 📱
+# Como analista de redes sociales, necesitas saber cuántas veces se menciona una palabra clave (hashtag) en una serie de posts.
+
+# Función: count_hashtag(posts_list, hashtag)
+
+# Tarea: La función recibe una lista de textos (strings) y una palabra clave (ej: "Python"). 
+# Debe devolver el número total de veces que esa palabra exacta aparece en los posts.
+
+# Prueba con: my_posts = ["I love Python", "Python is great", "JavaScript is ok", "Learning Python now"] y el hashtag "Python".
+
+def count_hashtags(posts_list, hashtag):
+    hashtag_count = 0
+
+    hashtag = hashtag.lower()
+
+    for post in posts_list:
+        if hashtag in post.lower():
+            hashtag_count +=1
+    return hashtag_count
+    
+hashtag = input("Introduce el Hashtag que quieres saber cuántas veces se menciona: ")
+posts_list = ["I love Python", "Python is great", "JavaScript is ok", "Learning Python now"]
+print(f"se ha mencionado {count_hashtags(posts_list, hashtag)} veces")
