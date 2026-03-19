@@ -430,6 +430,10 @@ max_budget = int(input("introduce tu presupuesto: "))
 price_list = [1200, 900, 1500, 850, 2000]
 print(f"{filter_rentals(price_list, max_budget)}")
 
+#------------------------------------------------------------
+print(f"-"*30)
+
+
 # 8. El "Contador de Menciones" 📱
 # Como analista de redes sociales, necesitas saber cuántas veces se menciona una palabra clave (hashtag) en una serie de posts.
 
@@ -453,3 +457,122 @@ def count_hashtags(posts_list, hashtag):
 hashtag = input("Introduce el Hashtag que quieres saber cuántas veces se menciona: ")
 posts_list = ["I love Python", "Python is great", "JavaScript is ok", "Learning Python now"]
 print(f"se ha mencionado {count_hashtags(posts_list, hashtag)} veces")
+
+
+#------------------------------------------------------------
+print(f"-"*30)
+
+
+
+# Ejercicio 9: El "Sanitizador" de Precios
+# A veces los datos vienen de Excel con formatos "sucios" (con el símbolo del euro, espacios o comas en lugar de puntos). 
+# Python no puede hacer cálculos con "1.250,50€", necesita que sea 1250.50.
+
+# Instrucciones:
+
+# Crea la función clean_price(price_str).
+# Dentro de la función:
+# Usa .replace("€", "") para quitar el símbolo.
+# Usa .strip() para quitar espacios.
+# Usa .replace(".", "") para quitar el punto de miles.
+# Usa .replace(",", ".") para cambiar la coma decimal por el punto que entiende Python.
+# Importante: Convierte el resultado final a número decimal usando float().
+# Prueba: Úsala con este dato: clean_price("  2.500,75 €  "). Si te devuelve el número 2500.75, ¡lo has clavado!
+
+def clean_price(price_srt):
+
+    corrected_price = price_srt.replace("€", "").strip().replace(".", "").replace(",", ".")
+
+    return float(corrected_price)
+
+print(f"{clean_price("  2.500,75  €  ")}")
+
+
+#------------------------------------------------------------
+print(f"-"*30)
+
+
+# Ejercicio 10: El Alerta de Stock (Inventario)
+# Imagina que trabajas en el almacén de una tienda. Tienes una lista de productos, 
+# pero cada producto es una pequeña lista con su nombre y su cantidad actual: ["Manzanas", 5].
+
+# Instrucciones:
+# Crea la función check_inventory(inventory_list).
+# Lógica: La función debe recorrer la lista de productos.
+# Si el stock es menor a 10, debe añadir el nombre del producto a una lista llamada reorder_list.
+# Return: Debe devolver la lista reorder_list con todos los productos que hay que volver a pedir.
+
+def check_inventory(inventory_list):
+
+    reorder_list = []
+
+    for stock in inventory_list:
+        name = stock[0]
+        num = stock[1]
+
+    # Puedes hacer esto directamente:
+    # for name, num in inventory_list:
+    #     if num < 10:
+    #         reorder_list.append(name)
+
+        if num < 10:
+            reorder_list.append(name)
+    return reorder_list
+
+inventory_list = [
+    ["Camisetas", 20],
+    ["Pantalones", 7],
+    ["Calcetines", 2],
+    ["Zapatillas", 15]
+]
+
+print(f"{check_inventory(inventory_list)}")
+
+
+
+
+
+#------------------------------------------------------------
+print(f"-"*30)
+
+# Imagina que te pasan los datos de ventas de una web, pero vienen fatal.
+
+# Tu misión: Crea una función process_sales(raw_data) que reciba esta lista "sucia":
+
+raw_data = [
+    ["Producto A", " 1.200,50 € "],
+    ["Producto B", " 450,00 € "],
+    ["Producto C", " 2.100,25 € "],
+    ["Producto D", " 85,90 € "]
+]
+
+# Lo que debe hacer la función:
+
+# Recorrer la lista.
+# Limpiar el precio de cada producto (puedes usar la lógica de tu función clean_price de antes o llamarla si la tienes en el mismo archivo).
+# Calcular la comisión del 10% de cada precio ya limpio.
+# Imprimir algo como: "El Producto A tiene una comisión de 120.05€".
+# Devolver la suma total de todas las comisiones.
+
+def process_sales(raw_data):
+
+    total_commisions = 0
+
+    for product, price in raw_data:
+
+        clean_price = price.replace("€", "").strip().replace(".", "").replace(",", ".")
+
+        clean_price = float(clean_price)
+
+        #print(F"{product}, {clean_price}")
+        commission_price = clean_price * 0.10
+
+        total_commisions += commission_price
+        
+        print(f"El {product} tiene una comisión de {commission_price:.2f}€")    #EL :.2f es para que solo muestre 2 decimales
+
+    return total_commisions
+
+final_result = process_sales(raw_data)
+
+print(f"--- El total de comisiones a pagar es: {final_result:.2f}€ ---")
